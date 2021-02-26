@@ -1,0 +1,46 @@
+﻿@* @{
+    ViewData["Title"] = "Home Page";
+} *@
+
+@model User
+<div class="text-center" style="display:flex; align-content:center;">
+
+    <form action="/register-process" method="post">
+    <h1>Register</h1>
+    <br />
+    <br />
+    <div class="form-group">
+        <div>
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" type="text">
+            <span style="color:red;" asp-validation-for="FirstName"></span>
+        </div>
+        <div>
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" type="text">
+            <span style="color:red;"asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" type="text">
+            <span style="color:red;" asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="text">
+            <span style="color:red;" asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="Confirm"></label>
+            <input asp-for="Confirm" type="text">
+            <span style="color:red;" asp-validation-for="Confirm"></span>
+        </div>
+        <button class="btn btn-primary">Register</button>
+    </div>
+    </form>
+
+    <partial name="LoginPartial"/> 
+    @* Login stuff *@
+
+
+</div>

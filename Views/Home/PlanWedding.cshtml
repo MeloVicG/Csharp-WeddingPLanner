@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Wedding</title>
+</head>
+
+@model Wedding
+<body>
+    <form action="/create-wedding-process" method="Post">
+        <h1>Plan Your Wedding | <a href="dashboard">DashBoard</a> | <a href="logout">Log Out</a></h1>
+        <div>
+            <label asp-for="WedderOne"></label>
+            <input asp-for="WedderOne" type="text" >
+            <span style="color:red;" asp-validation-for="WedderOne"></span>
+        </div>
+        <div>
+            <label asp-for="WedderTwo"></label>
+            <input asp-for="WedderTwo" type="text" >
+            <span style="color:red;" asp-validation-for="WedderTwo"></span>
+        </div>
+        <div>
+            <label asp-for="Date"></label>
+            <input asp-for="Date">
+            <span style="color:red;" asp-validation-for="Date"></span>
+        </div>
+        <div>
+            <label asp-for="Address"></label>
+            <input asp-for="Address" type="text" >
+            <span asp-validation-for="Address"></span>
+        </div>
+        <button class="btn btn-primary">Create</button>
+    </form>
+</body>
+</html>

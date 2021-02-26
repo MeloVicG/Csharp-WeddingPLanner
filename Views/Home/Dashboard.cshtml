@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+
+@* ViewBag.CurrentUser *@
+@* ViewBag.Weddings *@
+<body>
+    <h1>Welcome to the Wedding Planner <a href="logout">Log Out</a></h1>
+    <h3>Hi! @ViewBag.CurrentUser.FirstName</h3>
+    <a href="/">back to login</a>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Wedding</th>
+                <th>Date</th>
+                <th>Guest</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach(Wedding weds in ViewBag.Weddings)
+                {
+            <tr>
+                <td><a href="/wedding-detail/@weds.WeddingId">@weds.WedderOne & @weds.WedderTwo</a></td>
+                <td>@weds.Date</td>
+                <td>@weds.Guests.Count</td>
+                <td>
+                    @* If the UserId of the user who created this wedding is equal to current logged in user... *@
+                    @if(@weds.PlannedBy.UserId == @ViewBag.CurrentUser.UserId)
+                    {
+                        <form action="/delete/wedding/@weds.WeddingId" method="post">
+                        <button> Delete </button>
+                        </form>
+                    }
+                    @* else: if the currently logged in user's ID doesn't match the UserID of wedding planner *@
+                    @* in-line sql query to see if currently logged in user is already a guest *@
+                    @* @weds.Guests is a list of guests(RSVP objects) *@
+                    @* .Any() is a query that returns any objects that match the argument/lambda expression *@
+                    @* querying for where UserId in our Guest list matches current logged in user *@
+                    else if(@weds.Guests.Any(r => r.UserId == @ViewBag.CurrentUser.UserId))
+                    {
+                        
+                        <form action="/unrsvp/@weds.WeddingId" method="post"> 
+                            <button>UN-RSVP</button>
+                        </form>
+                    }
+                    @* if the currently logged in user's ID doesn't match anything in the query above... *@
+                    @* we want to let this currently logged in user RSVP *@
+                    else
+                    {
+                        <form action="/rsvp/@weds.WeddingId" method="post"> 
+                            @* can use hidden input *@
+                            @* <input type="hidden" value="@ViewBag.Wedding.weds.Guests.RSVPId"> *@
+                            <button>RSVP</button>
+                        </form>
+                    } 
+                </td>
+            </tr>
+                }
+        </tbody>
+    </table>
+    <form action="/plan-wedding" method="get">
+        <button>New Wedding</button>
+    </form>
+
+</body>
+</html>

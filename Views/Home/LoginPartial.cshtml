@@ -1,0 +1,21 @@
+    
+    @model LoginUser
+<div class="text-center" >
+    <form action="/login-process" method="post">
+    <h1>Login</h1>
+    <br/>
+    <br/>
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" type="text" >
+            <span style="color:red;" asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="text" >
+            <span style="color:red;" asp-validation-for="Password"></span>
+        </div>
+
+        <button class="btn btn-primary">Login</button>
+    </form>
+</div>
